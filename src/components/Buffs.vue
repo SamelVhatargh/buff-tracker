@@ -24,11 +24,6 @@ export default {
             ]
         }
     },
-    computed: {
-        activeBuffs() {
-            return this.buffs.filter((buff) => buff.turns.left > 0);
-        }
-    },
     methods: {
         addBuff(name, duration) {
             this.buffs.push({
@@ -49,6 +44,9 @@ export default {
         clear() {
             this.buffs = [];
             this.showBuffForm = false;
+        },
+        removeBuff(id) {
+            this.buffs.splice(id, 1);
         }
     },
     mounted() {
@@ -77,18 +75,24 @@ export default {
     <BuffForm v-if="showBuffForm" @add-buff="addBuff" />
     <h2>Active</h2>
     <table>
-        <tr v-for="buff in activeBuffs">
-            <td>{{ buff.name }}</td>
-            <td>{{ buff.turns.left }}/{{ buff.turns.total }}</td>
-        </tr>
+        <template  v-for="(buff, id) in buffs">
+            <tr v-if="buff.turns.left > 0">
+                <td>{{ buff.name }}</td>
+                <td>{{ buff.turns.left }}/{{ buff.turns.total }}</td>
+                <td @click="removeBuff(id)"> X</td>
+            </tr>
+        </template>
     </table>
 
     <h2>Past</h2>
-    <div v-for="buff in buffs">
-        <div v-if="buff.turns.left <= 0">
-            {{ buff.name }}
-        </div>
-    </div>
+    <table>
+        <template v-for="(buff, id) in buffs">
+            <tr v-if="buff.turns.left <= 0">
+                <td>{{ buff.name }}</td>
+                <td @click="removeBuff(id)"> X</td>
+            </tr>
+        </template>
+    </table>
     <h3>Shortcuts</h3>
     <ul>
         <li>Ctrl+Alt+N - Next Turn</li>
