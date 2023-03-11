@@ -41,12 +41,16 @@ export default {
                 buff.turns.left--;
             }
         },
+        clear() {
+            this.buffs = [];
+        }
     },
 }
 </script>
 
 <template>
     <h1>Buffs</h1>
+    <button @click="clear">Clear</button>
     <button @click="nextTurn">Next Turn</button>
     <button @click="showBuffForm = !showBuffForm">Add</button>
     <BuffForm v-if="showBuffForm" @add-buff="addBuff" />
