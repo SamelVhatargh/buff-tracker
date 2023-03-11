@@ -6,22 +6,7 @@ export default {
     data() {
         return {
             showBuffForm: false,
-            buffs: [
-                {
-                    name: 'Bless',
-                    turns: {
-                        total: 40,
-                        left: 10,
-                    },
-                },
-                {
-                    name: 'Protection from Evil',
-                    turns: {
-                        total: 10,
-                        left: 10,
-                    },
-                },
-            ]
+            buffs: [],
         }
     },
     methods: {
