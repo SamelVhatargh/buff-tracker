@@ -3,8 +3,14 @@ import Buffs from "@/components/Buffs.vue";
 </script>
 
 <template>
-    <Buffs />
+    <div class="wrapper">
+        <Buffs />
+    </div>
 </template>
 
 <style scoped>
+.wrapper {
+    max-width: 600px;
+    margin: 0 auto;
+}
 </style>
