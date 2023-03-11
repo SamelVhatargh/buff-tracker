@@ -55,9 +55,16 @@ export default {
     <button @click="nextTurn">Next Turn</button>
     <button @click="showBuffForm = !showBuffForm">Add</button>
     <BuffForm v-if="showBuffForm" @add-buff="addBuff" />
+    <h2>Active</h2>
     <div v-for="buff in buffs">
         <div v-if="buff.turns.left > 0">
             {{ buff.name }} {{ buff.turns.left }}/{{ buff.turns.total }}
+        </div>
+    </div>
+    <h2>Past</h2>
+    <div v-for="buff in buffs">
+        <div v-if="buff.turns.left <= 0">
+            {{ buff.name }}
         </div>
     </div>
 </template>
