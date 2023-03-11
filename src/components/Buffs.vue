@@ -1,7 +1,11 @@
 <script>
+import BuffForm from "@/components/BuffForm.vue";
+
 export default {
+    components: {BuffForm},
     data() {
         return {
+            showBuffForm: false,
             buffs: [
                 {
                     name: 'Bless',
@@ -20,11 +24,25 @@ export default {
             ]
         }
     },
+    methods: {
+        addBuff(name, duration) {
+            this.buffs.push({
+                name: name,
+                turns: {
+                    total: duration,
+                    left: duration,
+                }
+            });
+            this.showBuffForm = false;
+        }
+    }
 }
 </script>
 
 <template>
     <h1>Buffs</h1>
+    <button @click="showBuffForm = !showBuffForm">Add</button>
+    <BuffForm v-if="showBuffForm" @add-buff="addBuff" />
     <div v-for="buff in buffs">
         {{ buff.name }} {{buff.turns.left}}/{{buff.turns.total}}
     </div>
