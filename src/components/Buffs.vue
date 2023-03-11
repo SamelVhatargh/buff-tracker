@@ -24,6 +24,11 @@ export default {
             ]
         }
     },
+    computed: {
+        activeBuffs() {
+            return this.buffs.filter((buff) => buff.turns.left > 0);
+        }
+    },
     methods: {
         addBuff(name, duration) {
             this.buffs.push({
@@ -71,11 +76,13 @@ export default {
     <button @click="showBuffForm = !showBuffForm">Add</button>
     <BuffForm v-if="showBuffForm" @add-buff="addBuff" />
     <h2>Active</h2>
-    <div v-for="buff in buffs">
-        <div v-if="buff.turns.left > 0">
-            {{ buff.name }} {{ buff.turns.left }}/{{ buff.turns.total }}
-        </div>
-    </div>
+    <table>
+        <tr v-for="buff in activeBuffs">
+            <td>{{ buff.name }}</td>
+            <td>{{ buff.turns.left }}/{{ buff.turns.total }}</td>
+        </tr>
+    </table>
+
     <h2>Past</h2>
     <div v-for="buff in buffs">
         <div v-if="buff.turns.left <= 0">
