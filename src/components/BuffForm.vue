@@ -3,18 +3,21 @@ export default {
     data() {
         return {
             name: '',
-            duration: 0,
+            duration: 10,
         }
-    }
+    },
+    mounted() {
+        this.$refs['name-input'].focus();
+    },
 }
 </script>
 
 <template>
-    <div>
-        <label>Name <input v-model="name"/></label>
+    <form @submit.prevent="$emit('addBuff', name, duration)">
+        <label>Name <input v-model="name" ref="name-input"/></label>
         <label>Duration <input v-model="duration" type="number"/></label>
-        <button @click="$emit('addBuff', name, duration)">OK</button>
-    </div>
+        <button>OK</button>
+    </form>
 </template>
 
 <style scoped>

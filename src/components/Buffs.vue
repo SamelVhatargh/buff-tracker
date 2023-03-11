@@ -43,6 +43,7 @@ export default {
         },
         clear() {
             this.buffs = [];
+            this.showBuffForm = false;
         }
     },
 }
