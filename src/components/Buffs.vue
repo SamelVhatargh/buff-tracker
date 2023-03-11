@@ -34,17 +34,26 @@ export default {
                 }
             });
             this.showBuffForm = false;
-        }
-    }
+        },
+        nextTurn() {
+            for (let i = 0; i < this.buffs.length; i++) {
+                let buff = this.buffs[i];
+                buff.turns.left--;
+            }
+        },
+    },
 }
 </script>
 
 <template>
     <h1>Buffs</h1>
+    <button @click="nextTurn">Next Turn</button>
     <button @click="showBuffForm = !showBuffForm">Add</button>
     <BuffForm v-if="showBuffForm" @add-buff="addBuff" />
     <div v-for="buff in buffs">
-        {{ buff.name }} {{buff.turns.left}}/{{buff.turns.total}}
+        <div v-if="buff.turns.left > 0">
+            {{ buff.name }} {{ buff.turns.left }}/{{ buff.turns.total }}
+        </div>
     </div>
 </template>
 
