@@ -46,6 +46,21 @@ export default {
             this.showBuffForm = false;
         }
     },
+    mounted() {
+        this._keyListener = function(e) {
+            if (e.key === "n" && e.ctrlKey && e.altKey) {
+                this.nextTurn();
+            }
+            if (e.key === "a" && e.ctrlKey && e.altKey) {
+                this.showBuffForm = !this.showBuffForm;
+            }
+        };
+
+        document.addEventListener('keydown', this._keyListener.bind(this));
+    },
+    beforeDestroy() {
+        document.removeEventListener('keydown', this._keyListener);
+    }
 }
 </script>
 
@@ -67,6 +82,11 @@ export default {
             {{ buff.name }}
         </div>
     </div>
+    <h3>Shortcuts</h3>
+    <ul>
+        <li>Ctrl+Alt+N - Next Turn</li>
+        <li>Ctrl+Alt+A - Add Buff</li>
+    </ul>
 </template>
 
 <style scoped>
